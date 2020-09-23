@@ -1,0 +1,14 @@
+{
+  "targets": {
+    "thebestway-fc5e3": {
+      "hosting": {
+        "thebestway": [
+          "thebestway-fc5e3"
+        ]
+      }
+    }
+  },
+  "projects": {
+    "default": "thebestway-fc5e3"
+  }
+}
