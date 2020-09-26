@@ -1,1 +1,39 @@
-<p>login works!</p>
+<div *ngIf="loading" class="spinner"></div>
+  
+  <form [formGroup]="login" (ngSubmit)="loadUser()">
+<div *ngIf="!loading" class="container">
+   <h1>Login</h1>
+  
+    <mat-form-field appearance="outline" >
+        <mat-label>Ingrese Email</mat-label>
+        <input matInput placeholder="pat@example.com" [formControl]="emailInput" required [(ngModel)]="email">
+        <mat-error *ngIf="emailInput.invalid">{{getErrorMessage()}}</mat-error>
+      </mat-form-field>
+      <mat-form-field appearance="outline">
+        <mat-error *ngIf="passwordInput.invalid">{{getPaswordErrorMessage()}}</mat-error>
+        <mat-label>Ingrese Password</mat-label>
+        <input matInput [type]="hide ? 'password' : 'text'" [formControl]="passwordInput" required [(ngModel)]="password">
+        
+        <button mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hide">
+        <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
+        
+    </button>
+      </mat-form-field>
+
+      <button mat-raised-button [disabled]="!login.valid" color="primary" type="submit" >Ingresar</button>
+      <mat-error *ngIf="error">{{errorMessage}}</mat-error>
+  
+      <div class="register">
+      <a mat-raised-button color="accent" [routerLink]="['/register-caller']">Registrar</a>
+      </div>
+      <!-- <button mat-raised-button class="buttonGoogle" (click)="loginGoogle()">Login with Google</button> -->
+
+    </div>
+  
+</form>
+<br>
+  
+  
+    
+ 
+

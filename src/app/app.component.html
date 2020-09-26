@@ -1,19 +1,19 @@
 
-<mat-drawer-container class="example-container" autosize>
-  <mat-drawer #drawer class="example-sidenav" mode="side">
+<mat-drawer-container  class="example-container" autosize>
+  <mat-drawer  #drawer class="example-sidenav" mode="side">
+  
     <h3>Menu</h3>
-    <button mat-raised-button color="primary" [routerLink]="['/login']">Login</button>
-    <button mat-raised-button color="Accent" [routerLink]="['/register']">Register</button>
+    <button *ngIf="user.level < 1" mat-raised-button color="primary" (click)="drawer.toggle()" [routerLink]="['/login']">Login</button>
+    <button *ngIf="user.level < 1" mat-raised-button color="Accent" (click)="drawer.toggle()" [routerLink]="['/register']">Register</button>
+ 
   </mat-drawer>
-
-  <div class="example-sidenav-content">
-    
-    <app-header (toggleSidenav)="drawer.toggle()"></app-header>
+  <app-header [userLevel]="user.level" (toggleSidenav)="drawer.toggle()" (logOutEvent)="logOut()"></app-header>
+  
    <router-outlet> </router-outlet>
    <footer>
-     <h3>footer</h3>
-   </footer>
-  </div>
+    <h3>footer</h3>
+  </footer>
+
 
 </mat-drawer-container>
 

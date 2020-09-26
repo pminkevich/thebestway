@@ -3,12 +3,31 @@
     <button mat-icon-button class="example-icon" aria-label="Example icon-button with menu icon" (click)="onToggleSidenav()">
      <mat-icon>menu</mat-icon>
    </button>
-   <span>The Best Way</span>
+  <a [routerLink]="['/']"><div class="logo" ></div></a>
    <span class="example-spacer"></span>
-   <button mat-icon-button class="example-icon favorite-icon" aria-label="Example icon-button with heart icon">
-     <mat-icon>favorite</mat-icon>
+   <button  [routerLink]="['/objects']" mat-button class="example-icon favorite-icon" aria-label="Example icon-button with heart icon">
+    <mat-icon>emoji_events</mat-icon><p>Buscar Reliquias</p>
+  </button>
+ 
+   <button *ngIf="userLevel > 0" [routerLink]="['/upload']" mat-button class="example-icon favorite-icon" aria-label="Example icon-button with heart icon">
+    <mat-icon>arrow_circle_up</mat-icon><p>Subir Reliquia</p>
+  </button>
+   <button *ngIf="userLevel > 0" (click)="viewMenu()" mat-button class="example-icon favorite-icon" aria-label="Example icon-button with heart icon">
+     <mat-icon>face</mat-icon><p>My Menu</p>
    </button>
-   <button mat-icon-button class="example-icon" aria-label="Example icon-button with share icon">
-    <mat-icon>share</mat-icon>
+   <button *ngIf="userLevel > 0" mat-button class="example-icon" (click)="logOut()" aria-label="Log Out">
+    <mat-icon>exit_to_app</mat-icon><p>Sign Out</p>
   </button>
  </mat-toolbar>
+
+ <div *ngIf="show" class="menu">
+   <ul>
+     <li><button mat-button (click)="viewMenu()" [routerLink]="['/upload']">Subir Reliquia</button></li>
+     <hr>
+     <li><button mat-button (click)="viewMenu()" [routerLink]="['/my-panel']">Mi Panel</button></li>
+     <hr>
+     <li><button mat-button (click)="viewMenu()" [routerLink]="['/my-account']">Mi Cuenta</button></li>
+     <hr>
+     <li><button mat-button (click)="logOut()" >Cerrar Session</button></li>
+   </ul>
+ </div>

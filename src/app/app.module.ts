@@ -12,6 +12,19 @@ import {MatButtonModule} from '@angular/material/button';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import { ReactiveFormsModule } from '@angular/forms';
 import { HomeComponent } from './components/home/home.component';
+import{MatInputModule} from'@angular/material/input';
+import{MatFormFieldModule} from '@angular/material/form-field';
+import { AuthenticationService } from './service/authentication.service';
+import { AngularFireModule } from '@angular/fire';
+import { AngularFireAuthModule } from '@angular/fire/auth';
+import { AngularFirestoreModule } from '@angular/fire/firestore';
+import { environment } from 'src/environments/environment';
+import { WelcomeComponent } from './components/pages/welcome/welcome.component';
+import { TutorialComponent } from './components/pages/tutorial/tutorial.component';
+import { SeeObjectsComponent } from './components/shared/see-objects/see-objects.component';
+import { MyAccountComponent } from './components/users/my-account/my-account.component';
+import { MyPanelComponent } from './components/users/my-panel/my-panel.component';
+import { UpObjectsComponent } from './components/objects/up-objects/up-objects.component';
 
 const appRoutes:Routes = [
   {path: '', redirectTo:'/home', pathMatch: 'full'},
@@ -19,7 +32,13 @@ const appRoutes:Routes = [
   //{path: '', component: LoginComponent},
   {path: 'login', component: LoginComponent},
   {path: 'home', component: HomeComponent},
-  {path: 'register', component: RegisterComponent}
+  {path: 'register', component: RegisterComponent},
+  {path: 'welcome', component:WelcomeComponent},
+  {path:'my-panel', component:MyPanelComponent},
+  {path:'my-account', component:MyAccountComponent},
+  {path:'objects', component:SeeObjectsComponent},
+  {path: 'upload', component:UpObjectsComponent}
+
 ];
 
 
@@ -30,7 +49,13 @@ const appRoutes:Routes = [
     HeaderComponent,
     LoginComponent,
     RegisterComponent,
-    HomeComponent
+    HomeComponent,
+    WelcomeComponent,
+    TutorialComponent,
+    SeeObjectsComponent,
+    MyAccountComponent,
+    MyPanelComponent,
+    UpObjectsComponent
   ],
   imports: [
     RouterModule.forRoot(appRoutes),
@@ -41,9 +66,15 @@ const appRoutes:Routes = [
     ReactiveFormsModule,
     MatIconModule,
     MatToolbarModule,
-    MatButtonModule
+    MatButtonModule,
+    MatInputModule,
+    MatFormFieldModule,
+    AngularFireModule.initializeApp(environment.firebase),
+    AngularFireAuthModule,
+    AngularFirestoreModule
+    
   ],
-  providers: [],
+  providers: [AuthenticationService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

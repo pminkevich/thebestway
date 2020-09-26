@@ -1,1 +1,68 @@
-<p>register works!</p>
+<form [formGroup]="register" (ngSubmit)="onAddUser(register)">
+    <div class="container">
+        <h1>Register</h1>
+        <mat-form-field appearance="outline">
+            <mat-label>Ingrese Nombre y Apellido</mat-label>
+            <input matInput placeholder="Nombre Completo" [formControl]="nombre" required >
+            <mat-error *ngIf="nombre.invalid">{{textErrorMessage()}}</mat-error>
+          </mat-form-field>
+         <mat-form-field appearance="outline">
+            <mat-label>Ingrese  Telefono</mat-label>
+            <input matInput placeholder="Ej: 1131542378" [formControl]="phoneNumber" required >
+            <mat-error *ngIf="phoneNumber.invalid">{{telErrorMessage()}}</mat-error>
+          </mat-form-field>
+       
+            
+    
+        <mat-form-field appearance="outline">
+            <mat-label>Ingrese Email</mat-label>
+            <input matInput placeholder="pat@example.com" [formControl]="email" required >
+            <mat-error *ngIf="email.invalid">{{getErrorMessage()}}</mat-error>
+          </mat-form-field>
+          <mat-form-field appearance="outline">
+            <mat-error *ngIf="password.invalid">{{getPaswordErrorMessage()}}</mat-error>
+            <mat-label>Ingrese Password</mat-label>
+            <input matInput [type]="hide ? 'password' : 'text'" [formControl]="password" required [(ngModel)]="passwordOne">
+            
+            <button mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hide">
+            <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
+            
+        </button>
+    </mat-form-field>
+    <mat-form-field appearance="outline">
+        <mat-error *ngIf="passwordConfirmInput.invalid">{{getPaswordConfirmErrorMessage()}}</mat-error>
+        <mat-label>Confirme Password</mat-label>
+        <input  (mouseleave)="verifyPasswordConfirm()" matInput [type]="hide ? 'password' : 'text'" [formControl]="passwordConfirmInput" required [(ngModel)]="passwordConfirm" >
+        
+        <button mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hide">
+        <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
+        
+    </button>
+    </mat-form-field>
+    
+    <!-- <h3>Imagen de Perfil</h3>
+          <input  type="file" accept=".png, .jpg" (change)="onUpload($event)"> 
+          
+    
+                <div class="progress">
+                    <div class="progress-bar progress-bar-striped bg-success" role="progressbar"
+                    [style.width]="(uploadPercent | async ) + '%'">
+    
+                    </div>
+                </div>
+    
+                <button mat-raised-button *ngIf="urlImage | async; else btnDisabled" type="submit" class="btn btn-success btn-block" (click)="onAddUser()">Registrar</button> -->
+                <button mat-raised-button color="accent" [disabled]="!register.valid"  type="submit" class="btn btn-success btn-block" >Registrar</button>
+                    <!-- <ng-template #btnDisabled>
+                        <button mat-raised-button type="submit" disabled=true class="btn btn-secondary btn-block" (click)="onAddUser()">Registrar</button>
+                    </ng-template> -->
+                    <br>
+                    <!-- <button mat-raised-button class="buttonGoogle" (click)="loginGoogle()">Login with Google</button> -->
+                    
+                    <mat-error *ngIf="error">{{errorMessage}}</mat-error>
+                    <!-- <input #imageUser  type="hidden" [value]= "urlImage  | async ">  -->
+                <!-- <button (click)="verifyPasswordConfirm()">prueba</button> -->
+    
+        </div>
+    </form>
+    <br>
