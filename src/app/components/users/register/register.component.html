@@ -40,7 +40,7 @@
     </button>
     </mat-form-field>
     
-    <!-- <h3>Imagen de Perfil</h3>
+     <h3>Imagen de Perfil</h3>
           <input  type="file" accept=".png, .jpg" (change)="onUpload($event)"> 
           
     
@@ -51,17 +51,17 @@
                     </div>
                 </div>
     
-                <button mat-raised-button *ngIf="urlImage | async; else btnDisabled" type="submit" class="btn btn-success btn-block" (click)="onAddUser()">Registrar</button> -->
-                <button mat-raised-button color="accent" [disabled]="!register.valid"  type="submit" class="btn btn-success btn-block" >Registrar</button>
-                    <!-- <ng-template #btnDisabled>
+                
+                <button mat-raised-button *ngIf="urlImage | async; else btnDisabled" color="accent" [disabled]="!register.valid"  type="submit" class="btn btn-success btn-block" >Registrar</button>
+                     <ng-template #btnDisabled>
                         <button mat-raised-button type="submit" disabled=true class="btn btn-secondary btn-block" (click)="onAddUser()">Registrar</button>
-                    </ng-template> -->
+                    </ng-template> 
                     <br>
-                    <!-- <button mat-raised-button class="buttonGoogle" (click)="loginGoogle()">Login with Google</button> -->
+                  <!-- <button mat-raised-button class="buttonGoogle" (click)="loginGoogle()">Login with Google</button>  -->
                     
                     <mat-error *ngIf="error">{{errorMessage}}</mat-error>
-                    <!-- <input #imageUser  type="hidden" [value]= "urlImage  | async ">  -->
-                <!-- <button (click)="verifyPasswordConfirm()">prueba</button> -->
+                    <input #imageUser  type="hidden" [value]= "urlImage  | async ">  
+              
     
         </div>
     </form>

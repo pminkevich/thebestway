@@ -16,9 +16,11 @@
   }
 
   footer{
+    position: fixed;
+    bottom: 0;
       background-color: crimson;
-      position: absolute;
-      bottom: 0;
+      /* position: absolute;
+      bottom: 0; */
       width: 100%;
   }
  

@@ -135,9 +135,10 @@ userVisit: Usuario = {
                 emailVerified: userData.user.emailVerified,
                 phoneNumber: register.phoneNumber,
                 photoURL: userData.user.photoURL
+                
           
                 }
-                localStorage.setItem('UserData',JSON.stringify(user));
+                //localStorage.setItem('UserData',JSON.stringify(user));
                 
                 await this.updateUserData(user)
               
@@ -155,7 +156,11 @@ userVisit: Usuario = {
   public isAuthenticated(){
     return this.auth.authState.pipe(map(auth => auth));
   }
-  
+  async setImage(idUser:string,urlImage:string){
+    this.afs.doc(`usuarios/${idUser}`).update({
+      photoURL: urlImage
+    })
+  }
   private async updateUserData(user){
       const userRef: AngularFirestoreDocument<any> = this.afs.doc(`usuarios/${user.id}`);
       const data: Usuario = {

@@ -1,8 +1,11 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
+import { Observable } from 'rxjs';
+import { finalize } from 'rxjs/operators';
 import { Usuario } from 'src/app/models/user';
 import { AuthenticationService } from 'src/app/service/authentication.service';
+import { AngularFireStorage } from '@angular/fire/storage';
 
 @Component({
   selector: 'app-register',
@@ -10,7 +13,10 @@ import { AuthenticationService } from 'src/app/service/authentication.service';
   styleUrls: ['./register.component.css']
 })
 export class RegisterComponent implements OnInit {
-
+  @ViewChild('imageUser') inputImageUser: ElementRef
+  
+  uploadPercent: Observable<number>;
+  urlImage: Observable<string>;
   error:boolean;
   errorMessage:string='';
   title:string='Login';
@@ -18,7 +24,7 @@ export class RegisterComponent implements OnInit {
   // public email: string ='';
   public passwordOne: string= '';
   public passwordConfirm: string= '';
-
+ 
   register= this.createFormGroup();
    
 
@@ -35,7 +41,8 @@ export class RegisterComponent implements OnInit {
   
   constructor(private router:Router,
               private authService:AuthenticationService,
-              private fb:FormBuilder,) { }
+              private fb:FormBuilder,
+              private storage: AngularFireStorage) { }
 
   ngOnInit(): void {
     this.user= JSON.parse(localStorage.getItem('UserData'));
@@ -115,7 +122,36 @@ export class RegisterComponent implements OnInit {
   async onAddUser(register: FormGroup){
     this.authService.registerUser(register.value)
     .then(() => {
+     
+      this.authService.isAuthenticated().subscribe( user => {
+        if (user){
+          const userForm:Usuario=register.value;
+          const userModel={
+            id:user.uid,
+            nombre: userForm.nombre,
+            email: user.email,
+            emailVerified: user.emailVerified,
+            phoneNumber: userForm.phoneNumber,
+            photoURL: this.inputImageUser.nativeElement.value
+             }
+          
 
+        localStorage.setItem('UserData', JSON.stringify(userModel));
+
+          this.authService.setImage(user.uid,this.inputImageUser.nativeElement.value);
+
+                user.updateProfile({
+                displayName: userForm.nombre,
+                photoURL: this.inputImageUser.nativeElement.value
+
+            }).then( () => {
+              this.router.navigate(['/home']);
+                console.log('USUARIO ACTUALIZADO');
+            }).catch( (error) => 
+                console.log('error', error));
+            
+        }
+    });
       
         this.router.navigate(['/welcome'])
 
@@ -129,5 +165,16 @@ export class RegisterComponent implements OnInit {
       console.log(error);
     });
 
+}
+onUpload(e){
+  //console.log('Subir', e.target.files[0]);
+  const id = Math.random().toString(36).substring(2);
+  const file = e.target.files[0];
+  const filePath = `upload/${id}`;
+  const ref = this.storage.ref(filePath);
+  const task = this.storage.upload(filePath, file);
+  this.uploadPercent = task.percentageChanges();
+
+  task.snapshotChanges().pipe( finalize (() => this.urlImage = ref.getDownloadURL())).subscribe();
 }
 }

@@ -1,5 +1,6 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { Router } from '@angular/router';
+import { Usuario } from 'src/app/models/user';
 import { AuthenticationService } from 'src/app/service/authentication.service';
 
 @Component({
@@ -10,6 +11,8 @@ import { AuthenticationService } from 'src/app/service/authentication.service';
 export class HeaderComponent implements OnInit {
   @Input() userLevel:number;
   show:boolean=false;
+  user:Usuario=new Usuario();
+  imageUrl:string='../../../assets/icons/perfil.jpg';
   @Output() toggleSidenav= new EventEmitter<void>()
   @Output() logOutEvent=new EventEmitter<void>()
 
@@ -17,6 +20,10 @@ export class HeaderComponent implements OnInit {
               private route:Router) { }
 
   ngOnInit(): void {
+   this.user=JSON.parse(localStorage.getItem('UserData'));
+   if(this.user){
+    this.imageUrl=this.user.photoURL;
+   }
    
   }
   onToggleSidenav(): void{
@@ -28,6 +35,13 @@ export class HeaderComponent implements OnInit {
   }
   viewMenu(){
     this.show=!this.show;
+    if(this.show){
+      setTimeout(() => {
+        
+             this.show=false;
+        
+      }, 10000);
+    }
   }
 
 }

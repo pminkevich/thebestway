@@ -65,7 +65,7 @@ ngOnInit(): void {
           
           setTimeout(() => {
             console.log('cargando...');
-  
+            this.router.navigate(['/my-panel']);
             // this.user= this.authService.otrouser;
             //console.log(this.user);
            

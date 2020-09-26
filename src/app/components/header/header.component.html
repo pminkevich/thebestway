@@ -5,6 +5,10 @@
    </button>
   <a [routerLink]="['/']"><div class="logo" ></div></a>
    <span class="example-spacer"></span>
+  
+  <button *ngIf="userLevel > 0" [routerLink]="['/my-panel']" mat-button class="example-icon favorite-icon" aria-label="Example icon-button with heart icon">
+    <mat-icon>home</mat-icon><p>Home</p>
+  </button>
    <button  [routerLink]="['/objects']" mat-button class="example-icon favorite-icon" aria-label="Example icon-button with heart icon">
     <mat-icon>emoji_events</mat-icon><p>Buscar Reliquias</p>
   </button>
@@ -13,11 +17,12 @@
     <mat-icon>arrow_circle_up</mat-icon><p>Subir Reliquia</p>
   </button>
    <button *ngIf="userLevel > 0" (click)="viewMenu()" mat-button class="example-icon favorite-icon" aria-label="Example icon-button with heart icon">
-     <mat-icon>face</mat-icon><p>My Menu</p>
+    <img class="imagePerfil" src="{{imageUrl}}" alt="Imagen de Perfil"><p>Mi Perfil</p>
    </button>
-   <button *ngIf="userLevel > 0" mat-button class="example-icon" (click)="logOut()" aria-label="Log Out">
+  
+   <!-- <button *ngIf="userLevel > 0" mat-button class="example-icon" (click)="logOut()" aria-label="Log Out">
     <mat-icon>exit_to_app</mat-icon><p>Sign Out</p>
-  </button>
+  </button> -->
  </mat-toolbar>
 
  <div *ngIf="show" class="menu">
