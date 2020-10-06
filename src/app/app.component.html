@@ -8,7 +8,10 @@
  
   </mat-drawer>
   <app-header [userLevel]="user.level" (toggleSidenav)="drawer.toggle()" (logOutEvent)="logOut()"></app-header>
-  
+  <div *ngIf="newVersion" class="newVersion">
+    <app-release></app-release>
+    <button (click)="closeViewVersion()" mat-raised-button color="accent">Cerrar</button>
+  </div>
    <router-outlet> </router-outlet>
   <br>
    <footer>

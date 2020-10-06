@@ -1,0 +1,20 @@
+
+@media (max-width:600px){
+    mat-form-field{
+        width: 100%;
+    }
+}
+
+@media(min-width:601px){
+    .container{
+        margin-top: 15px;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+    }
+    mat-form-field{
+        width: 40%;
+    }
+
+}

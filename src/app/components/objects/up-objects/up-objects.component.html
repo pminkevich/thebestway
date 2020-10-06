@@ -1,1 +1,56 @@
-<p>up-objects works!</p>
+<form [formGroup]="newObjectForm" (ngSubmit)="loadObject(newObjectForm.value)">
+<div class="container">
+<!-- Nombre -->
+<mat-form-field appearance="fill">
+    <mat-label>Nombre de la Reliquia</mat-label>
+    <input matInput 
+    placeholder="Ingrese el Nombre del Objeto"
+    formControlName="name"
+    pattern="[a-zA-Z]{4,20}">
+    <mat-error>Ingrese el Nombre de La Reliquia</mat-error>
+</mat-form-field>
+<!-- Descripcion-->
+
+<mat-form-field hintLabel="Max 100 characters" appearance="fill">
+    <mat-label>Descripción</mat-label>
+    <textarea matInput #input maxlength="100" 
+    placeholder="Ingrese Descripción"
+    formControlName="descripcion"
+    ></textarea>
+  <mat-hint align="end">{{input.value?.length || 0}}/100</mat-hint>
+  </mat-form-field>
+
+<!-- Pais -->
+<mat-form-field appearance="fill">
+    <mat-label>Pais de Origen</mat-label>
+    <input matInput 
+    placeholder="Made In"
+    formControlName="madeIn"
+    pattern="[a-zA-Z]{4,20}">
+    <mat-error>Ingrese el Pais de Origen de La Reliquia</mat-error>
+</mat-form-field>
+<!-- Año -->
+<mat-form-field appearance="fill">
+  <mat-label>Año</mat-label>
+  <input matInput 
+  placeholder="Año de Origen"
+  formControlName="anio"
+  pattern="[0-9]{4}">
+  <mat-error>Ingrese el Año de Fabricación u Origen</mat-error>
+</mat-form-field>
+<!-- Valor -->
+<mat-form-field appearance="fill">
+  <mat-label>Valor</mat-label>
+  <input matInput 
+  placeholder="Valor del Objeto"
+  formControlName="valor"
+  pattern="^\d+(,\d{1,2})?$">
+  <mat-error >Ingrese Valor de la Reliquia</mat-error>
+</mat-form-field>
+
+  <br>
+<button type="submit"
+ mat-raised-button color="primary"
+ [disabled]="!newObjectForm.valid">Subir</button>
+</div>
+</form>
